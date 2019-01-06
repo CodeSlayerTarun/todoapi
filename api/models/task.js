@@ -20,7 +20,8 @@ var TaskSchema = new mongoose.Schema({
     todoStatus: {
         type: String,
         default: "Not completed"
-    }  
+    },
+    assignedTo: [String]
 }); 
 var Task = mongoose.model('task', TaskSchema);
 module.exports = Task;

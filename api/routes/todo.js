@@ -7,7 +7,7 @@ const Tasks = require('../models/task');
 const checkAuth = require("../middleware/check-auth");
 //@route GET "todo/list"
 router.get("/list/:user_id", checkAuth, (req, res, next) => {
-    Tasks.find({"user_id": req.params.user_id}, (err, docs) => {
+    Tasks.find({$or : [{"user_id": req.params.user_id}, {"assignedTo": [req.params.user_id] } ] }, (err, docs) => {
         if(err){
             res.json({
                 message: "There was an error in fetching the list.",
@@ -36,6 +36,7 @@ router.post("/add", checkAuth,(req, res, next) => {
         todoTask: req.body.todoTask,
         timeOfCompletion: req.body.timeOfCompletion,
         timeStamp: req.body.timeStamp,
+        assignedTo: req.body.assignedTo
     });
     newTodo.save((err, doc) => {
         if(err){
@@ -57,7 +58,8 @@ router.put('/update/:todoId', checkAuth,(req, res, next) => {
         todoTask: req.body.todoTask,
         timeOfCompletion: req.body.timeOfCompletion,
         timeStamp: req.body.timeStamp,
-        todoStatus: req.body.todoStatus
+        todoStatus: req.body.todoStatus,
+        assignedTo: req.body.assignedTo
     };
     Tasks.findByIdAndUpdate(req.params.todoId, { $set: todo}, {new: true}, (err, doc) => {
         if(err){

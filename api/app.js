@@ -16,6 +16,7 @@ mongoose.connect('mongodb://localhost:27017/todoApp', err => {
 //@Router Imports
 const UsersRoute = require('./routes/users.js');
 const TodoRoute = require('./routes/todo');
+const CollabRoute = require('./routes/collaboration');
 //@logger morgan
 app.use(morgan('dev'));
 //@middleware bodyParser
@@ -36,6 +37,7 @@ app.use((req, res, next) => {
 //@Router middleware app.use()
 app.use('/users', UsersRoute);
 app.use('/todo', TodoRoute);
+app.use('/collab', CollabRoute);
 //@port number
 const PORT = process.env.PORT || 3000;
 //@Listening to the SERVER
