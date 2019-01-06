@@ -10,6 +10,12 @@ var UserSchema = new mongoose.Schema({
   }, 
   password: {
     type: String
+  },
+  address: {
+    type: String
+  },
+  phone: {
+    type: String
   }
 });
 var User = mongoose.model('User', UserSchema);

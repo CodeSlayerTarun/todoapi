@@ -1,38 +1,26 @@
 var mongoose = require('mongoose');
 
-
 var TaskSchema = new mongoose.Schema({
-
-    name:{
-        id:{
-            type:mongoose.Schema.Types.ObjectId,
-            ref:"user"
-        },
+    user_id:{
+        type: String
     },
-    sendername:{
-          type:String,
+    todoName: {
+        type: String
     },
-    todolist:[{
-      list:{
-          type:String,
-          status:String,
-
-      },
-      
-      timestamp:{
+    todoTask: {
+        type: String
+    },
+    timeOfCompletion: {
+        type: String
+    },
+    timeStamp: {
         type : Date,
-         default: Date.now 
-      }   
-    }],
-    addtodo:[{
-        type:String,
-        status:String,
+        default: Date.now
     },
-    timestamp:{
-        type : Date,
-         default: Date.now
-  }],  
-    
-});
+    todoStatus: {
+        type: String,
+        default: "Not completed"
+    }  
+}); 
 var Task = mongoose.model('task', TaskSchema);
-module.exports = User;
+module.exports = Task;
