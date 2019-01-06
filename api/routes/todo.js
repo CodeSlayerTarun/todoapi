@@ -9,18 +9,18 @@ const checkAuth = require("../middleware/check-auth");
 router.get("/list/:user_id", checkAuth, (req, res, next) => {
     Tasks.find({"user_id": req.params.user_id}, (err, docs) => {
         if(err){
-            res.status(400).json({
+            res.json({
                 message: "There was an error in fetching the list.",
                 result: err
             })
         } else{
             if(docs.length == 0){
-                res.status(200).json({
+                res.json({
                     message: "List is empty.",
                     result: docs
                 })
             } else {
-            res.status(200).json({
+            res.json({
                 message: "List fetched succesfully.",
                 result: docs
             })
@@ -39,12 +39,12 @@ router.post("/add", checkAuth,(req, res, next) => {
     });
     newTodo.save((err, doc) => {
         if(err){
-            res.status(400).json({
+            res.json({
                 message: "Error in saving the Todo, please try again.",
                 result: err
             })
         } else {
-            res.status(200).json({
+            res.json({
                 message: "Your Todo saved successfully.",
                 result: doc
             })
@@ -61,12 +61,12 @@ router.put('/update/:todoId', checkAuth,(req, res, next) => {
     };
     Tasks.findByIdAndUpdate(req.params.todoId, { $set: todo}, {new: true}, (err, doc) => {
         if(err){
-            res.status(400).json({
+            res.json({
             message: "Failed to update the todo.",
             result: err
             })
         }else {
-        res.status(200).json({
+        res.json({
             message: "Your Todo is updated.",
             result: doc
         })
@@ -77,12 +77,12 @@ router.put('/update/:todoId', checkAuth,(req, res, next) => {
 router.delete('/delete/:todoId', checkAuth,(req, res, next) => {
     Tasks.findByIdAndRemove(req.params.todoId, (err, doc) => {
         if(err){
-            res.status(400).json({
+            res.json({
                 message: "There was problem in removing the todo.",
                 result: err
             })
         } else {
-            res.status(200).json({
+            res.json({
                 message: "Your todo is deleted.",
                 result: doc
             })
